@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "declaration": true,
+        "moduleResolution": "Bundler",
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "skipLibCheck": false,
+        "noUnusedLocals": false,
+        "noUnusedParameters": false,
+        "outDir": "dist"
+    },
+    "include": [
+        "src/*"
+    ]
+}

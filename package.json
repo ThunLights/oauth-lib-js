@@ -1,0 +1,25 @@
+{
+    "name": "@thunlights/oauth",
+    "type": "module",
+    "main": "dist/index.cjs",
+    "module": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "ci": "bun install && npm run build",
+        "build": "tsup"
+    },
+    "devDependencies": {
+        "@types/bun": "^1.2.2"
+    },
+    "peerDependencies": {
+        "typescript": "^5.0.0"
+    },
+    "dependencies": {
+        "@types/ws": "^8.5.14",
+        "bun": "^1.2.2",
+        "strict-event-emitter-types": "^2.0.0",
+        "tsup": "^8.3.6",
+        "ws": "^8.18.0",
+        "zod": "^3.24.1"
+    }
+}
