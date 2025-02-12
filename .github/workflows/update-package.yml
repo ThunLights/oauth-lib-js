@@ -8,28 +8,12 @@ on:
             - main
 
 jobs:
-    update:
+    releaser:
         runs-on: ubuntu-latest
-        permissions:
-            contents: read
-            id-token: write
         steps:
-            - name: Checkout repository
-              uses: actions/checkout@v4
-
-            - name: Set up Node.js
-              uses: actions/setup-node@v4
-              with:
-                node-version: '20'
-                registry-url: 'https://registry.npmjs.org'
-
-            - name: Install dependencies
-              run: npm install
-
-            - name: CI
-              run: npm run ci
-
-            - name: Publish package
-              run: npm publish --provenance --access public
-              env:
-                NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        - uses: actions/checkout@v2
+        - uses: mmarchini-oss/npm-otp-publish@v0
+          with:
+            npm_token: ${{ secrets.NPM_TOKEN }}
+            github_token: ${{ secrets.GH_ACCOUNT_TOKEN }}
+            github_actor: ${{ github.actor }}
