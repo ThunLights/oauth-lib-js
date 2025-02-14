@@ -13,6 +13,7 @@ const Event = EventEmitter as {
     new(): StrictEventEmitter<EventEmitter, {
         error: (content: string) => void
         welcome: (content: string) => void
+        open: (content: string) => void
         code: (content: CodeApiResponse) => void
         accessToken: (content: AccessTokenApiResponse) => void
         refreshToken: (content: RefreshTokenApiResponse) => void

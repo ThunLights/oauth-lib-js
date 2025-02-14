@@ -17,6 +17,10 @@ export class WebSocketClientMessage {
             content: z.string(),
         }),
         z.object({
+            type: z.literal("open"),
+            content: z.string(),
+        }),
+        z.object({
             type: z.literal("code"),
             content: z.object({
                 accessToken: z.string(),
