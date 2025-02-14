@@ -43,8 +43,8 @@ const thunlights = new ThunLights({
     secretKey: "SECRET_KEY",
 });
 
-thunlights.ws.on("open", domain => {
-    console.log(`LOGINED: ${domain}`);
+thunlights.ws.on("open", applicationId => {
+    console.log(`LOGINED: ${applicationId}`);
 
     //code to access token and refresh token.
     thunlights.ws.verify.code("CODE_HERE");
@@ -73,6 +73,6 @@ thunlights.ws.on("refreshToken", content => {
 });
 ```
 
-## Documentation
+## Other Language
 
-https://document.thunlights.com/docs/intro
+https://document.thunlights.com/docs/category/use-libraries
