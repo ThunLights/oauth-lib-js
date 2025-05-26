@@ -1,3 +1,4 @@
+import WebSocket from "ws";
 import { EventEmitter } from "events";
 import { WebSocketClientMessage } from "./WebScocketClient.message";
 
@@ -6,7 +7,6 @@ import { AccessTokenApiResponse } from "../HttpClient/HttpClient.accessToken";
 import { RefreshTokenApiResponse } from "../HttpClient/HttpClient.refreshToken";
 
 import type StrictEventEmitter from "strict-event-emitter-types";
-import type WebSocket from "ws";
 import type { Auth } from "../index";
 
 const Event = EventEmitter as {
@@ -25,15 +25,15 @@ const Event = EventEmitter as {
 
 export class WebSocketClient extends Event {
 	public loaded = false;
+	public readonly ws: WebSocket;
 
-	constructor(
-		public readonly ws: WebSocket,
-		public readonly auth: Auth
-	) {
+	constructor(public readonly auth: Auth) {
 		super();
 
+		this.ws = new WebSocket("wss://oauth.thunlights.com/ws");
+
 		this.ws.on("open", async () => {
-			ws.on("message", (message, isBinary) => {
+			this.ws.on("message", (message, isBinary) => {
 				const data = WebSocketClientMessage.parse(message, isBinary);
 				if (!data) {
 					return;
@@ -49,7 +49,7 @@ export class WebSocketClient extends Event {
 
 				this.emit(data.type, JSON.parse(message.toString()).content);
 			});
-			ws.send(
+			this.ws.send(
 				JSON.stringify({
 					type: "handshake",
 					applicationId: auth.application,

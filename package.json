@@ -11,9 +11,12 @@
 		"ci": "bun install && npm run build",
 		"build": "tsup",
 		"format": "prettier --write .",
-		"lint": "prettier --check . && eslint ."
+		"lint": "prettier --check . && eslint .",
+		"changesets": "npx @changesets/cli"
 	},
-    "files": [ "dist" ],
+	"files": [
+		"dist"
+	],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/ThunLights/oauth-lib-js.git",

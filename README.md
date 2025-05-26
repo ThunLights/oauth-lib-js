@@ -38,37 +38,37 @@ if (!(response instanceof OauthError)) {
 ```ts
 import { ThunLights, OauthError } from "@thunlights/oauth";
 
-const thunlights = new ThunLights({
+const thunlights = new ThunLights.WebSocket({
 	application: "APLICATION_ID",
 	secretKey: "SECRET_KEY"
 });
 
-thunlights.ws.on("open", (applicationId) => {
+thunlights.on("open", (applicationId) => {
 	console.log(`LOGINED: ${applicationId}`);
 
 	//code to access token and refresh token.
-	thunlights.ws.verify.code("CODE_HERE");
+	thunlights.verify.code("CODE_HERE");
 });
 
-thunlights.ws.on("error", (content) => {
+thunlights.on("error", (content) => {
 	console.log(content);
 });
 
-thunlights.ws.on("code", (content) => {
+thunlights.on("code", (content) => {
 	console.log(content);
 
 	//access token to account data
-	thunlights.ws.verify.accessToken(content.accessToken);
+	thunlights.verify.accessToken(content.accessToken);
 
 	//refresh token to new access token
-	thunlights.ws.verify.refreshToken(content.refreshToken);
+	thunlights.verify.refreshToken(content.refreshToken);
 });
 
-thunlights.ws.on("accessToken", (content) => {
+thunlights.on("accessToken", (content) => {
 	console.log(content);
 });
 
-thunlights.ws.on("refreshToken", (content) => {
+thunlights.on("refreshToken", (content) => {
 	console.log(content);
 });
 ```
