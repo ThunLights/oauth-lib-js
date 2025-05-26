@@ -1,39 +1,49 @@
 {
-    "name": "@thunlights/oauth",
-    "type": "module",
-    "main": "dist/index.cjs",
-    "module": "dist/index.js",
-    "types": "dist/index.d.ts",
-    "version": "1.0.3",
-    "author": "thunlights",
-    "license": "MIT",
-    "scripts": {
-        "ci": "bun install && npm run build",
-        "build": "tsup"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/ThunLights/oauth-lib-js.git",
-        "directory": "dist/index.js"
-    },
-    "devDependencies": {
-        "@types/bun": "^1.2.2"
-    },
-    "peerDependencies": {
-        "typescript": "^5.0.0"
-    },
-    "dependencies": {
-        "@types/ws": "^8.5.14",
-        "bun": "^1.2.2",
-        "strict-event-emitter-types": "^2.0.0",
-        "tsup": "^8.3.6",
-        "ws": "^8.18.0",
-        "zod": "^3.24.1"
-    },
-    "keywords": [
-        "thunlights",
-        "oauth",
-        "thunlights oauth",
-        "open authorization"
-    ]
+	"name": "@thunlights/oauth",
+	"type": "module",
+	"main": "dist/index.cjs",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"version": "1.0.3",
+	"author": "thunlights",
+	"license": "MIT",
+	"scripts": {
+		"ci": "bun install && npm run build",
+		"build": "tsup",
+		"format": "prettier --write .",
+		"lint": "prettier --check . && eslint ."
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ThunLights/oauth-lib-js.git",
+		"directory": "dist/index.js"
+	},
+	"devDependencies": {
+		"@types/bun": "^1.2.2"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	},
+	"dependencies": {
+		"@changesets/cli": "^2.29.4",
+		"@eslint/compat": "^1.2.9",
+		"@eslint/js": "^9.27.0",
+		"@types/ws": "^8.5.14",
+		"bun": "^1.2.2",
+		"eslint": "^9.27.0",
+		"eslint-config-prettier": "^10.1.5",
+		"globals": "^16.2.0",
+		"prettier": "^3.5.3",
+		"strict-event-emitter-types": "^2.0.0",
+		"tsup": "^8.3.6",
+		"typescript-eslint": "^8.32.1",
+		"ws": "^8.18.0",
+		"zod": "^3.24.1"
+	},
+	"keywords": [
+		"thunlights",
+		"oauth",
+		"thunlights oauth",
+		"open authorization"
+	]
 }
