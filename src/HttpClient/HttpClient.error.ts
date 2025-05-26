@@ -1,8 +1,10 @@
-
 export type Details = {
-    status: number
-}
+	status: number;
+};
 
 export class OauthError {
-    constructor(public readonly content: string, public readonly details?: Details) {}
+	constructor(
+		public readonly content: string,
+		public readonly details?: Details
+	) {}
 }

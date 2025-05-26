@@ -1,3 +1,4 @@
+import WebSocket from "ws";
 import { EventEmitter } from "events";
 import { WebSocketClientMessage } from "./WebScocketClient.message";
 
@@ -6,76 +7,91 @@ import { AccessTokenApiResponse } from "../HttpClient/HttpClient.accessToken";
 import { RefreshTokenApiResponse } from "../HttpClient/HttpClient.refreshToken";
 
 import type StrictEventEmitter from "strict-event-emitter-types";
-import type WebSocket from "ws";
 import type { Auth } from "../index";
 
 const Event = EventEmitter as {
-    new(): StrictEventEmitter<EventEmitter, {
-        error: (content: string) => void
-        welcome: (content: string) => void
-        open: (content: string) => void
-        code: (content: CodeApiResponse) => void
-        accessToken: (content: AccessTokenApiResponse) => void
-        refreshToken: (content: RefreshTokenApiResponse) => void
-    }>
+	new (): StrictEventEmitter<
+		EventEmitter,
+		{
+			error: (content: string) => void;
+			welcome: (content: string) => void;
+			open: (content: string) => void;
+			code: (content: CodeApiResponse) => void;
+			accessToken: (content: AccessTokenApiResponse) => void;
+			refreshToken: (content: RefreshTokenApiResponse) => void;
+		}
+	>;
 };
 
 export class WebSocketClient extends Event {
-    public loaded = false;
+	public loaded = false;
+	public readonly ws: WebSocket;
 
-    constructor(public readonly ws: WebSocket, public readonly auth: Auth) {
-        super();
+	constructor(public readonly auth: Auth) {
+		super();
 
-        this.ws.on("open", async () => {
-            ws.on("message", (message, isBinary) => {
-                const data = WebSocketClientMessage.parse(message, isBinary);
-                if (!data) {
-                    return;
-                }
-                if (data.type === "heartbeat") {
-                    return this.ws.send(JSON.stringify({
-                        type: "heartbeat",
-                        content: Date.now(),
-                    }));
-                }
-    
-                this.emit(data.type, JSON.parse(message.toString()).content);
-            });
-            ws.send(JSON.stringify({
-                type: "handshake",
-                applicationId: auth.application,
-                secret: auth.secretKey,
-            }));
-            this.loaded = true;
-        });
-    }
+		this.ws = new WebSocket("wss://oauth.thunlights.com/ws");
 
-    public get verify() {
-        return {
-            code: (code: string) => {
-                if (this.loaded) {
-                    return this.ws.send(JSON.stringify({
-                        type: "code",
-                        content: code,
-                    }));
-                }
-            },
-            accessToken: (accessToken: string) => {
-                if (this.loaded) {
-                    return this.ws.send(JSON.stringify({
-                        type: "accessToken",
-                        content: accessToken,
-                    }));
-                }
-            },
-            refreshToken: (refreshToken: string) => {
-                if (this.loaded) {
-                    return this.ws.send(JSON.stringify({
-                        type: "refreshToken",
-                        content: refreshToken,
-                    }));
-                }
-            },
-        }
-    }
+		this.ws.on("open", async () => {
+			this.ws.on("message", (message, isBinary) => {
+				const data = WebSocketClientMessage.parse(message, isBinary);
+				if (!data) {
+					return;
+				}
+				if (data.type === "heartbeat") {
+					return this.ws.send(
+						JSON.stringify({
+							type: "heartbeat",
+							content: Date.now()
+						})
+					);
+				}
+
+				this.emit(data.type, JSON.parse(message.toString()).content);
+			});
+			this.ws.send(
+				JSON.stringify({
+					type: "handshake",
+					applicationId: auth.application,
+					secret: auth.secretKey
+				})
+			);
+			this.loaded = true;
+		});
+	}
+
+	public get verify() {
+		return {
+			code: (code: string) => {
+				if (this.loaded) {
+					return this.ws.send(
+						JSON.stringify({
+							type: "code",
+							content: code
+						})
+					);
+				}
+			},
+			accessToken: (accessToken: string) => {
+				if (this.loaded) {
+					return this.ws.send(
+						JSON.stringify({
+							type: "accessToken",
+							content: accessToken
+						})
+					);
+				}
+			},
+			refreshToken: (refreshToken: string) => {
+				if (this.loaded) {
+					return this.ws.send(
+						JSON.stringify({
+							type: "refreshToken",
+							content: refreshToken
+						})
+					);
+				}
+			}
+		};
+	}
 }
