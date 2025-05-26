@@ -26,7 +26,7 @@ export class AccessToken extends HttpClientBase {
 			}
 
 			return new OauthError("ERR");
-		} catch (error) {
+		} catch {
 			return new OauthError("ERR");
 		}
 	}

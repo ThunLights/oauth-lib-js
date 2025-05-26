@@ -31,7 +31,7 @@ export class RefreshToken extends HttpClientBase {
 			}
 
 			return new OauthError("ERR", { status: response.status });
-		} catch (error) {
+		} catch {
 			return new OauthError("ERR");
 		}
 	}

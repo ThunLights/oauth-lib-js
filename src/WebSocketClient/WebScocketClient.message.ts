@@ -49,8 +49,12 @@ export class WebSocketClientMessage {
 		isBinary: boolean
 	): z.infer<typeof this.MessageTypes> | null {
 		try {
-			const data = this.MessageTypes.parse(JSON.parse(message.toString()));
-			return data;
+			if (!isBinary) {
+				const data = this.MessageTypes.parse(JSON.parse(message.toString()));
+				return data;
+			} else {
+				return null;
+			}
 		} catch {
 			return null;
 		}
