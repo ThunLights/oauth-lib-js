@@ -13,6 +13,7 @@
 		"format": "prettier --write .",
 		"lint": "prettier --check . && eslint ."
 	},
+    "files": [ "dist" ],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/ThunLights/oauth-lib-js.git",
