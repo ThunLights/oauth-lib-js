@@ -36,7 +36,7 @@
 		"bun": "^1.2.2",
 		"eslint": "^9.27.0",
 		"eslint-config-prettier": "^10.1.5",
-		"globals": "^16.2.0",
+		"globals": "^17.0.0",
 		"prettier": "^3.5.3",
 		"strict-event-emitter-types": "^2.0.0",
 		"tsup": "^8.3.6",
